@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+
     private void checkForConnection() {
         new InternetCheck(new InternetCheck.Consumer() {
             @Override

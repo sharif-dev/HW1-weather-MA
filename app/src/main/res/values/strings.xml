@@ -4,4 +4,23 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="location_search">Search for the location…</string>
+    <string name="today_button">Today</string>
+    <string name="tomorrow_button">1</string>
+    <string name="day2_button">2</string>
+    <string name="day3_button">3</string>
+    <string name="day4_button">4</string>
+    <string name="day5_button">5</string>
+    <string name="day6_button">6</string>
+    <string name="date">Date:</string>
+    <string name="sunrise">Sunrise:</string>
+    <string name="sunset">Sunset:</string>
+    <string name="weather_icon">Icon</string>
+    <string name="min_temp">Min:</string>
+    <string name="avg_temp">Avg:</string>
+    <string name="max_temp">Max:</string>
+    <string name="max_wind">Max Wind:</string>
+    <string name="celsius">°C / </string>
+    <string name="fahrenheit">°F</string>
+    <string name="windSpeed"> KPH</string>
+    <string name="url">https:</string>
 </resources>

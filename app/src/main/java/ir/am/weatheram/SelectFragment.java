@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,10 +28,13 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import ir.am.weatheram.models.Feature;
 import ir.am.weatheram.models.MapboxResult;
+import ir.am.weatheram.models.WeatherResult;
 import ir.am.weatheram.utils.NetUtils;
+
 
 public class SelectFragment extends Fragment {
     private List<Feature> currentSearchMatchFeatures;
@@ -47,7 +51,7 @@ public class SelectFragment extends Fragment {
                     @Override
                     public void run() {
                         sendSearchRequest(searchQuery);
-                        getView().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+                        Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
                     }
                 });
             }
@@ -88,7 +92,7 @@ public class SelectFragment extends Fragment {
     }
 
     private void sendSearchRequest(String s) {
-        final RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        final RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         StringRequest stringRequest = new StringRequest(
                 Request.Method.GET,
                 NetUtils.getMapBoxReverseUrl(s),
@@ -99,27 +103,27 @@ public class SelectFragment extends Fragment {
                         List<Feature> searchMatchFeatures = result.getFeatures();
                         setupSuggestionsAdapter(searchMatchFeatures);
                         currentSearchMatchFeatures = searchMatchFeatures;
-                        getView().findViewById(R.id.progress_bar).setVisibility(View.GONE);
+                        Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.GONE);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                        getView().findViewById(R.id.progress_bar).setVisibility(View.GONE);
+                        Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.GONE);
                     }
                 });
         requestQueue.add(stringRequest);
     }
 
     private void setupSuggestionsAdapter(List<Feature> searchMatchFeatures) {
-        AutoCompleteTextView searchTextView = getView().findViewById(R.id.search_text);
+        AutoCompleteTextView searchTextView = Objects.requireNonNull(getView()).findViewById(R.id.search_text);
         List<String> searchResultPlaces = new ArrayList<>();
         for (Feature feature : searchMatchFeatures) {
             searchResultPlaces.add(feature.getPlaceName());
         }
         ArrayAdapter<String> searchResultsAdapter = new ArrayAdapter<>(
-                getContext(),
+                Objects.requireNonNull(getContext()),
                 android.R.layout.simple_list_item_1,
                 searchResultPlaces);
         searchTextView.setAdapter(searchResultsAdapter);
@@ -127,10 +131,36 @@ public class SelectFragment extends Fragment {
         searchTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 3/15/20 Go to the next page and show weather info for the selected item
-                // the item is accessible by id, یعنی اینکه این پایین رو ببین
-                // cityLatLong = currentSearchMatchFeatures.get(id);
+                List<Double> cityLatLong = currentSearchMatchFeatures.get((int) id).getGeometry().getCoordinates();
+                final RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
+                StringRequest stringRequest = new StringRequest(
+                        Request.Method.GET,
+                        NetUtils.getWeatherReverseUrl(cityLatLong.get(1), cityLatLong.get(0)),
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                WeatherResult result = new Gson().fromJson(response, WeatherResult.class);
+                                Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.GONE);
+                                setupDetailFragment(result);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                                Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.GONE);
+                            }
+                        });
+                requestQueue.add(stringRequest);
             }
         });
     }
+
+    private void setupDetailFragment(WeatherResult result) {
+        final FragmentTransaction fragmentTransaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, new DetailFragment(result));
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 }
