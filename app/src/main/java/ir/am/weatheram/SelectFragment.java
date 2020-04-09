@@ -133,6 +133,7 @@ public class SelectFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 List<Double> cityLatLong = currentSearchMatchFeatures.get((int) id).getGeometry().getCoordinates();
                 final RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
+                Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
                 StringRequest stringRequest = new StringRequest(
                         Request.Method.GET,
                         NetUtils.getWeatherReverseUrl(cityLatLong.get(1), cityLatLong.get(0)),
