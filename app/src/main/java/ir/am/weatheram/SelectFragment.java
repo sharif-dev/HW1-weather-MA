@@ -1,5 +1,7 @@
 package ir.am.weatheram;
 
+
+import ir.am.weatheram.MainActivity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -146,6 +148,7 @@ public class SelectFragment extends Fragment {
                             @Override
                             public void onResponse(String response) {
                                 WeatherResult result = new Gson().fromJson(response, WeatherResult.class);
+                                saveResult(result);
                                 Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.GONE);
                                 setupDetailFragment(result);
                             }
@@ -160,6 +163,11 @@ public class SelectFragment extends Fragment {
                 requestQueue.add(stringRequest);
             }
         });}
+    }
+
+    private void saveResult(WeatherResult result) {
+        if (result != null)
+            ((MainActivity) Objects.requireNonNull(getActivity())).setResult(result);
     }
 
     private void setupDetailFragment(WeatherResult result) {

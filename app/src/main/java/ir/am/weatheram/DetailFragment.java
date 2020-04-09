@@ -25,6 +25,7 @@ import ir.am.weatheram.models.WeatherResult;
 public class DetailFragment extends Fragment implements View.OnClickListener{
 
     public WeatherResult result;
+
     private TextView date;
     private TextView sunrise;
     private TextView sunset;
