@@ -51,7 +51,8 @@ public class SelectFragment extends Fragment {
                     @Override
                     public void run() {
                         sendSearchRequest(searchQuery);
-                        Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+                        if (getView() != null){
+                        Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);}
                     }
                 });
             }
@@ -103,21 +104,25 @@ public class SelectFragment extends Fragment {
                         List<Feature> searchMatchFeatures = result.getFeatures();
                         setupSuggestionsAdapter(searchMatchFeatures);
                         currentSearchMatchFeatures = searchMatchFeatures;
-                        Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.GONE);
+                        if (getView() != null){
+                        Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.GONE);}
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                        Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.GONE);
+                        if (getView() != null){
+                        Objects.requireNonNull(getView()).findViewById(R.id.progress_bar).setVisibility(View.GONE);}
                     }
                 });
         requestQueue.add(stringRequest);
     }
 
     private void setupSuggestionsAdapter(List<Feature> searchMatchFeatures) {
-        AutoCompleteTextView searchTextView = Objects.requireNonNull(getView()).findViewById(R.id.search_text);
+        AutoCompleteTextView searchTextView;
+        if (getView() != null) {
+            searchTextView = Objects.requireNonNull(getView()).findViewById(R.id.search_text);
         List<String> searchResultPlaces = new ArrayList<>();
         for (Feature feature : searchMatchFeatures) {
             searchResultPlaces.add(feature.getPlaceName());
@@ -154,11 +159,11 @@ public class SelectFragment extends Fragment {
                         });
                 requestQueue.add(stringRequest);
             }
-        });
+        });}
     }
 
     private void setupDetailFragment(WeatherResult result) {
-        final FragmentTransaction fragmentTransaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
+        final FragmentTransaction fragmentTransaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, new DetailFragment(result));
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
