@@ -1,6 +1,5 @@
 package ir.am.weatheram;
 
-import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -141,11 +139,11 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
         sunset.setText(result.getForecast().getForecastday().get(dayNumber).getAstro().getSunset());
         condition.setText(result.getForecast().getForecastday().get(dayNumber).getDay().getCondition().getText());
         //Picasso.with(icon.getContext()).load(R.string.url + result.getForecast().getForecastday().get(dayNumber).getDay().getCondition().getIcon()).into(icon);
-        Glide.with(icon.getContext()).load(R.string.url + result.getForecast().getForecastday().get(dayNumber).getDay().getCondition().getIcon()).error(R.drawable.ic_launcher_foreground).centerCrop().into(icon);
-        //minTemp.setText(result.getForecast().getForecastday().get(dayNumber).getDay().getMintempC() + R.string.celsius + result.getForecast().getForecastday().get(dayNumber).getDay().getMintempF() + R.string.fahrenheit);
-        //maxTemp.setText(result.getForecast().getForecastday().get(dayNumber).getDay().getMaxtempC() + R.string.celsius + result.getForecast().getForecastday().get(dayNumber).getDay().getMaxtempF() + R.string.fahrenheit);
-        //wind.setText(result.getForecast().getForecastday().get(dayNumber).getDay().getMaxwindKph() + R.string.windSpeed);
-        //avgTemp.setText(result.getForecast().getForecastday().get(dayNumber).getDay().getAvgtempC() + R.string.celsius + result.getForecast().getForecastday().get(dayNumber).getDay().getAvgtempF() + R.string.fahrenheit);
+        Glide.with(icon.getContext()).load(result.getForecast().getForecastday().get(dayNumber).getDay().getCondition().getIcon()).error(R.drawable.ic_launcher_foreground).centerCrop().into(icon);
+        minTemp.setText(result.getForecast().getForecastday().get(dayNumber).getDay().getMintemp_c());
+        maxTemp.setText(result.getForecast().getForecastday().get(dayNumber).getDay().getMaxtemp_c());
+        wind.setText(result.getForecast().getForecastday().get(dayNumber).getDay().getMaxwind_kph());
+        avgTemp.setText(result.getForecast().getForecastday().get(dayNumber).getDay().getAvgtemp_c());
     }
 
 }

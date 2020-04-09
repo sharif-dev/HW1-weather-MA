@@ -1,56 +1,56 @@
 package ir.am.weatheram.models;
 
 public class Day {
-    private int maxtempC;
-    private int maxtempF;
-    private int mintempC;
-    private int mintempF;
-    private int avgtempC;
-    private int avgtempF;
-    private int maxwindKph;
+    private Double maxtemp_c;
+    private Double maxtemp_f;
+    private Double mintemp_c;
+    private Double mintemp_f;
+    private Double avgtemp_c;
+    private Double avgtemp_f;
+    private Double maxwind_kph;
     private Condition condition;
 
-    public String getMaxtempC(){
-        return String.valueOf(maxtempC);
+    public String getMaxtemp_c(){
+        return maxtemp_c.toString();
     }
-    public void setMaxtempC(Double input){
-        this.maxtempC = input.intValue();
+    public void setMaxtemp_c(Double input){
+        this.maxtemp_c = input;
     }
-    public int getMaxtempF(){
-        return maxtempF;
+    public String getMaxtemp_f(){
+        return maxtemp_f.toString();
     }
-    public void setMaxtempF(Double input){
-        this.maxtempF = input.intValue();
+    public void setMaxtemp_f(Double input){
+        this.maxtemp_f = input;
     }
-    public String getMintempC(){
-        return String.valueOf(mintempC);
+    public String getMintemp_c(){
+        return mintemp_c.toString();
     }
-    public void setMintempC(Double input){
-        this.mintempC = input.intValue();
+    public void setMintemp_c(Double input){
+        this.mintemp_c = input;
     }
-    public String getMintempF(){
-        return String.valueOf(mintempF);
+    public String getMintemp_f(){
+        return mintemp_f.toString();
     }
-    public void setMintempF(Double input){
-        this.mintempF = input.intValue();
+    public void setMintemp_f(Double input){
+        this.mintemp_f = input;
     }
-    public int getAvgtempC(){
-        return avgtempC;
+    public String getAvgtemp_c(){
+        return avgtemp_c.toString();
     }
-    public void setAvgtempC(Double input){
-        this.avgtempC = input.intValue();
+    public void setAvgtemp_c(Double input){
+        this.avgtemp_c = input;
     }
-    public int getAvgtempF(){
-        return avgtempF;
+    public String getAvgtemp_f(){
+        return avgtemp_f.toString();
     }
-    public void setAvgtempF(Double input){
-        this.avgtempF = input.intValue();
+    public void setAvgtemp_f(Double input){
+        this.avgtemp_f = input;
     }
-    public int getMaxwindKph(){
-        return maxwindKph;
+    public String getMaxwind_kph(){
+        return maxwind_kph.toString();
     }
-    public void setMaxwindKph(Double input){
-        this.maxwindKph = input.intValue();
+    public void setMaxwind_kph(Double input){
+        this.maxwind_kph = input;
     }
     public Condition getCondition(){
         return condition;
