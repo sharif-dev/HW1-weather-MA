@@ -19,8 +19,8 @@
     <string name="avg_temp">Avg:</string>
     <string name="max_temp">Max:</string>
     <string name="max_wind">Max Wind:</string>
-    <string name="celsius">°C / </string>
-    <string name="fahrenheit">°F</string>
+    <string name="celsius">"°C / "</string>
+    <string name="fahrenheit">"°F"</string>
     <string name="windSpeed"> KPH</string>
     <string name="url">https:</string>
 </resources>

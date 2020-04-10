@@ -25,11 +25,11 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences mPrefs;
 
     public void setResult(WeatherResult res){
-        SharedPreferences.Editor prefsEditor = mPrefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(res);
-        prefsEditor.putString("Result", json);
-        prefsEditor.apply();
+//        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+//        Gson gson = new Gson();
+//        String json = gson.toJson(res);
+//        prefsEditor.putString("Result", json);
+//        prefsEditor.apply();
     }
 
     @Override
@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
                 if (hasInternetAccess.get()) {
                     setupSelectFragment();
                 } else {
-                    Gson gson = new Gson();
-                    String json = mPrefs.getString("Result", "");
-                    WeatherResult result = gson.fromJson(json, WeatherResult.class);
-                    setupDetailFragment(result);
+//                    Gson gson = new Gson();
+//                    String json = mPrefs.getString("Result", "");
+//                    WeatherResult result = gson.fromJson(json, WeatherResult.class);
+//                    setupDetailFragment(result);
                 }
             }
         });

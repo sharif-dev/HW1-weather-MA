@@ -16,4 +16,16 @@ public class NetUtils {
     public static String getWeatherReverseUrl(Double latitude, Double longitude) {
         return "http://api.weatherapi.com/v1/forecast.json?key=" + getWeatherKey() + "&q=" + latitude + "," + longitude + "&days=7";
     }
+
+    public static String getTempText(String temp_c, String temp_f) {
+        return temp_c + "°C / " + temp_f + "°F";
+    }
+
+    public static String getWindText(String max_wind) {
+        return max_wind + " KPH";
+    }
+
+    public static String getIconURL(String icon) {
+        return "https:" + icon;
+    }
 }
